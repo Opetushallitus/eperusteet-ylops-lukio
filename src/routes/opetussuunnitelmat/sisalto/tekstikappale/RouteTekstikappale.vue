@@ -29,9 +29,9 @@
               <h5 slot="header">{{ $t('perusteen-teksti') }}</h5>
               <p class="perusteteksti" v-html="$kaanna(perusteenTeksti.perusteenOsa.teksti)">
               </p>
-              <div class="alert alert-info" v-if="!isEditing && !$kaanna(perusteenTeksti.perusteenOsa.teksti)">{{ $t('perusteen-sisaltoa-ei-maaritetty') }}</div>
+              <div class="font-italic text-secondary" v-if="!isEditing && !$kaanna(perusteenTeksti.perusteenOsa.teksti)">{{ $t('perusteen-sisaltoa-ei-maaritetty') }}</div>
               <div v-if="isEditing">
-                <b-form-checkbox v-model="data.tov.naytaPerusteenTeksti">{{ $t('nayta-perusteen-teksti') }}</b-form-checkbox>
+                <ep-toggle v-model="data.tov.naytaPerusteenTeksti">{{ $t('nayta-perusteen-teksti') }}</ep-toggle>
               </div>
               <div class="spacing" />
             </ep-collapse>
@@ -41,7 +41,7 @@
               </h5>
               <p class="perusteteksti" v-html="$kaanna(alkuperainen.tekstiKappale.teksti)" />
               <div v-if="isEditing">
-                <b-form-checkbox v-model="data.tov.naytaPohjanTeksti">{{ $t('nayta-pohjan-teksti') }}</b-form-checkbox>
+                <ep-toggle v-model="data.tov.naytaPohjanTeksti">{{ $t('nayta-pohjan-teksti') }}</ep-toggle>
               </div>
               <div class="spacing" />
             </ep-collapse>
@@ -50,7 +50,7 @@
                 <h5>{{ $t('paikallinen-teksti') }}</h5>
               </template>
               <ep-content layout="normal" :opetussuunnitelma-store="opetussuunnitelmaStore" v-model="data.tov.tekstiKappale.teksti" :is-editable="isEditing"> </ep-content>
-              <div class="alert alert-info" v-if="!isEditing && !$kaanna(data.tov.tekstiKappale.teksti)">{{ $t('paikallista-sisaltoa-ei-maaritetty') }}</div>
+              <ep-alert v-if="!isEditing && !$kaanna(data.tov.tekstiKappale.teksti)" :ops="false" :text="$t('paikallista-sisaltoa-ei-maaritetty')" />
             </ep-collapse>
           </span>
         </div>
@@ -76,6 +76,7 @@ import EpEditointi from'@/components/EpEditointi/EpEditointi.vue';
 import EpField from'@/components/forms/EpField.vue';
 import EpFormContent from'@/components/forms/EpFormContent.vue';
 import EpInput from'@/components/forms/EpInput.vue';
+import EpAlert from '@shared/components/EpAlert/EpAlert.vue';
 
 import {
   Lops2019Perusteet,
@@ -98,6 +99,7 @@ import {
     EpFormContent,
     EpField,
     EpInput,
+    EpAlert,
   },
 })
 export default class RouteTekstikappale extends Mixins(EpRoute, EpOpsComponent) {
@@ -215,6 +217,7 @@ export default class RouteTekstikappale extends Mixins(EpRoute, EpOpsComponent) 
 
 <style scoped lang="scss">
 @import "@/styles/_variables.scss";
+@import '@shared/styles/_mixins.scss';
 
 .badges {
   .badge {
@@ -247,6 +250,9 @@ export default class RouteTekstikappale extends Mixins(EpRoute, EpOpsComponent) 
     }
 
     .perusteteksti {
+
+      @include teksti-sisalto;
+
       font-style: italic;
       font-size: 80%;
     }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="116px" height="116px" viewBox="0 0 116 116" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>Tyhja-tila</title>
+    <desc>Created with Sketch.</desc>
+    <g id="ASSETIT-+-tekstityylit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ASSETIT---VALMIUSASTE,-OPS-KORTIT,-HEADER" transform="translate(-552.000000, -1888.000000)">
+            <g id="Tyhja-tila" transform="translate(552.000000, 1888.000000)">
+                <circle id="Oval" fill="#E9EEF8" cx="58" cy="58" r="58"></circle>
+                <path d="M29.5,23 L32.8191489,23 L75.5,23 C76.6045695,23 77.5,23.8954305 77.5,25 L77.5,91 C77.5,92.1045695 76.6045695,93 75.5,93 L29.5,93 C28.3954305,93 27.5,92.1045695 27.5,91 L27.5,28.7377049 L27.5,25 C27.5,23.8954305 28.3954305,23 29.5,23 Z" id="Rectangle" fill="#FFFFFF"></path>
+                <g id="Group-13" transform="translate(76.000000, 45.500000) rotate(225.000000) translate(-76.000000, -45.500000) translate(70.000000, 19.000000)">
+                    <polygon id="Rectangle" fill="#E2E9F8" points="0 9 6 1.5063506e-12 12 9 12 53 0 53"></polygon>
+                    <rect id="Rectangle" fill="#DBE3F6" x="4" y="9" width="4" height="44"></rect>
+                    <rect id="Rectangle-Copy-58" fill="#CCD9F8" x="0" y="9" width="4" height="44"></rect>
+                    <path d="M6,0 L12,9 L0,9 L6,0 Z" id="Combined-Shape-Copy" fill="#E9EEF8"></path>
+                    <path d="M6,0 L8,3 L4,3 L6,0 Z" id="Combined-Shape" fill="#99B3F1"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

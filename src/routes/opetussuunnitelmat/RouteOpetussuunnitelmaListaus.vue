@@ -68,7 +68,7 @@
         <h3 class="mt-4">{{ $t(vars.julkaistut) }}</h3>
 
         <div class="info" v-if="julkaistut.length === 0">
-          <div class="alert alert-info">{{ $t(vars.eivalmiita) }}</div>
+          <ep-alert :ops="true" :text="$t(vars.eivalmiita)" />
         </div>
 
         <div class="opscontainer">
@@ -110,7 +110,7 @@
         <h3 class="mt-4">{{ $t(vars.poistetut) }}</h3>
 
         <div class="info" v-if="poistetut.length === 0">
-          <div class="alert alert-info">{{ $t(vars.eiarkistoituja) }}</div>
+          <ep-alert :ops="true" :text="$t(vars.eiarkistoituja)" />
         </div>
 
         <div class="opscontainer">
@@ -153,6 +153,7 @@ import EpNavigation from '@/components/EpNavigation/EpNavigation.vue';
 import EpProgress from '@/components/EpProgress.vue';
 import EpSpinner from '@/components/EpSpinner/EpSpinner.vue';
 import EpButton from '@/components/EpButton/EpButton.vue';
+import EpAlert from '@shared/components/EpAlert/EpAlert.vue';
 import { oikeustarkastelu } from '@/directives/oikeustarkastelu';
 import { TutoriaaliStore } from '@/stores/tutoriaaliStore';
 import { OpetussuunnitelmaStore } from '@/stores/opetussuunnitelma';
@@ -171,6 +172,7 @@ import { success, fail } from '@/utils/notifications';
     EpNavigation,
     EpProgress,
     EpSpinner,
+    EpAlert,
   },
 })
 export default class RouteOpetussuunnitelmaListaus extends Mixins(EpRoute) {
@@ -274,6 +276,11 @@ $box-size: 350px;
 $box-radius: 10px;
 
 .opslistaus {
+
+  .info {
+    padding: 10px 0px;
+  }
+
   .opscontainer {
     display: flex;
     flex-wrap: wrap;
