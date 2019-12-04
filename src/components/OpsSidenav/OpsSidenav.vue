@@ -20,10 +20,16 @@
         <template v-slot="{ itemData, isPreviousLink, isSubmenu, navigate, itemRoute }">
           <ops-sidenav-link :to="itemRoute" :class="{ 'module-link': onkoModTaiOj(itemData.item) }" v-if="!isSubmenu && itemRoute">
             <a class="btn btn-link">
-              <ep-color-ball class="mr-2" v-if="onkoModTaiOj(itemData.item)" :kind="itemData.item.objref.pakollinen ? 'pakollinen': 'valinnainen'">
-              </ep-color-ball>
-              <span>{{ kaanna(itemData.item) }}</span>
-              <span class="code-field" v-if="itemData.item.type === 'moduuli'">({{ haeModuuliKoodi(itemData.item) }})</span>
+                <div class="d-inline-flex">
+                  <div>
+                    <ep-color-ball class="mr-2" v-if="onkoModTaiOj(itemData.item)" :kind="itemData.item.objref.pakollinen ? 'pakollinen': 'valinnainen'">
+                    </ep-color-ball>
+                  </div>
+                  <div>
+                    <span>{{ kaanna(itemData.item) }}</span>
+                    <span class="code-field" v-if="itemData.item.type === 'moduuli'">({{ haeModuuliKoodi(itemData.item) }})</span>
+                  </div>
+                </div>
             </a>
           </ops-sidenav-link>
           <li class="subheader" v-if="!isSubmenu && !itemRoute">

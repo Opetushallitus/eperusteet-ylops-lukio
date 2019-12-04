@@ -15,7 +15,7 @@
             </ep-search>
           </div>
           <div class="p-2 checkbox">
-            <b-form-checkbox v-model="vainPuuttuvat">{{ $t('vain-puuttuvat-moduulit') }}</b-form-checkbox>
+            <ep-toggle v-model="vainPuuttuvat">{{ $t('vain-liittamattomat-moduulit') }}</ep-toggle>
           </div>
         </div>
       </div>
@@ -147,6 +147,7 @@ import EpContent from '@/components/EpContent/EpContent.vue';
 import EpEditointi from '@/components/EpEditointi/EpEditointi.vue';
 import EpSpinner from '@/components/EpSpinner/EpSpinner.vue';
 import EpSearch from '@/components/forms/EpSearch.vue';
+import EpToggle from'@shared/components/forms/EpToggle.vue';
 import { Lops2019ModuuliDto, Lops2019OppiaineDto } from '@/tyypit';
 import EpRoute from '@/mixins/EpRoute';
 import EpOpsComponent from '@/mixins/EpOpsComponent';
@@ -170,6 +171,7 @@ import { oikeustarkastelu } from '@/directives/oikeustarkastelu';
     EpEditointi,
     EpSearch,
     EpSpinner,
+    EpToggle,
   },
 })
 export default class RouteOppiaineet extends Mixins(EpRoute, EpOpsComponent) {

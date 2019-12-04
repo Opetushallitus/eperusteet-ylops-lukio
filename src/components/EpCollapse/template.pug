@@ -1,5 +1,5 @@
 div
-  .ep-collapse(v-if="!disableHeader")
+  .ep-collapse(v-if="!disableHeader" :class="first ? 'first': ''")
     // Button tagia ei voida käyttää, sillä ml-auto ei toimi.
     // Käytetään button rolea saavutettavuuden takaamiseksi.
     .collapse-button.d-flex(

@@ -17,7 +17,7 @@
       </template>
       <template v-slot="{ data, validation, isEditing }">
         <div class="osio">
-          <ep-collapse tyyppi="opintojakson-tiedot">
+          <ep-collapse tyyppi="opintojakson-tiedot" :first="true">
             <div class="alueotsikko" slot="header">{{ $t('opintojakson-tiedot') }}</div>
             <div class="row">
               <div class="col-md-6">
@@ -638,8 +638,8 @@ hr.valiviiva {
   padding: 27px 0 0 0px;
 
   &:not(:first-child) {
-    margin: 27px 0 27px 0;
-    border-top: 1px solid #DADADA;
+    //margin: 27px 0 27px 0;
+    // border-top: 1px solid #DADADA;
   }
 
   .paikallinen-laaja-alainen {

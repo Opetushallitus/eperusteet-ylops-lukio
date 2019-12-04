@@ -13,6 +13,9 @@ export default class EpCollapse extends Vue {
   @Prop({ default: '' })
   private tyyppi!: string;
 
+  @Prop({ default: false})
+  private first!: boolean;
+
   private toggled = false;
 
   isToggled() {

@@ -860,7 +860,7 @@
   "vahvista-vuosiluokkakokonaisuudet-muokkaus-otsikko": "Muokkaa OPS:n tietoja",
   "vahvista-vuosiluokkakokonaisuudet-muokkaus-teksti": "Tallenna muutokset? Vuosiluokkakokonaisuuden valinnan poisto hävittää sen sisällöt.",
   "vaihda-tilaa": "Vaihda tilaa",
-  "vain-puuttuvat-moduulit": "Vain puuttuvat moduulit",
+  "vain-liittamattomat-moduulit": "Vain liittämättömät moduulit",
   "validation-category-moduuli": "Moduulit",
   "validation-category-opetussuunnitelma": "Opetussuunnitelman tiedot",
   "validation-category-opintojakso": "Opintojaksot",

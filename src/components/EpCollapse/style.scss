@@ -1,6 +1,13 @@
 @import '@/styles/_variables.scss';
 
+.ep-collapse:not(.first) {
+  border-top: 1px solid #DADADA;
+}
+
 .ep-collapse {
+
+  padding: 27px 0 27px 0;
+
   .collapse-button {
     cursor: pointer;
     outline: none;
@@ -9,4 +16,5 @@
   .header {
     user-select: none;
   }
+
 }

@@ -71,7 +71,7 @@
         :validation="validation.selitys",
         :is-editable="true")
     ep-form-content(name="alaviite")
-      b-form-checkbox(v-model="kasite.alaviite") {{ $t('merkitse-kasite-alaviitteeksi') }}
+      ep-toggle(v-model="kasite.alaviite") {{ $t('merkitse-kasite-alaviitteeksi') }}
     template(slot="modal-cancel") {{ $t('peruuta') }}
     template(slot="modal-ok") {{ kasite.id ? $t('tallenna') : $t('lisaa-kasite') }}
 
