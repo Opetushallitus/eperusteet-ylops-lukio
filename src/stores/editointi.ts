@@ -21,7 +21,7 @@ export interface EditointiKontrolliHistory {
 
 export interface EditointiKontrolliData {
   load: () => Promise<unknown>;
-  save: (data: any) => Promise<any>;
+  save?: (data: any) => Promise<any>;
   cancel?: () => Promise<void>;
 }
 
@@ -90,6 +90,10 @@ export class EditointiKontrolli {
 
   public get isEditing() {
     return this.isEditingState;
+  }
+
+  public get isEditable() {
+    return !!(this.config.source.save);
   }
 
   public get state() {
@@ -190,7 +194,7 @@ export class EditointiKontrolli {
     if (!this.isEditing) {
       this.logger.warn('Ei voi tallentaa ilman editointia');
     }
-    else if (await this.validate()) {
+    else if (await this.validate() && !!(this.config.source.save)) {
       EditointiKontrolli.totalEditingEditors -= 1;
       try {
         await this.config.source.save(this.mstate.data);

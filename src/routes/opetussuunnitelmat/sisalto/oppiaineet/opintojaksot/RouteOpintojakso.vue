@@ -1,7 +1,7 @@
 <template>
 <div class="content">
   <div v-if="hooks && !isLoading">
-    <ep-editointi :hooks="hooks" v-model="editable" :validator="validator">
+    <ep-editointi :hooks="hooks" v-model="editable" :validator="validator" type="opintojakso">
       <template slot="ohje" slot-scope="{ }">
         <div class="sidepad">
           <p v-html="$t('ohje-opintojakso')">
@@ -17,52 +17,50 @@
       </template>
       <template v-slot="{ data, validation, isEditing }">
         <div class="osio">
-          <ep-collapse tyyppi="opintojakson-tiedot" :first="true">
-            <div class="alueotsikko" slot="header">{{ $t('opintojakson-tiedot') }}</div>
-            <div class="row">
-              <div class="col-md-6">
-                <ep-form-content name="nimi">
-                  <ep-field
-                    help="opintojakso-nimi-ohje"
-                    v-model="data.nimi"
-                    :validation="validation.nimi"
-                    :is-header="false"
-                    :is-editing="isEditing"></ep-field>
-                </ep-form-content>
-              </div>
-              <div class="col-md-6">
-                <ep-form-content name="koodi">
-                  <ep-field help="opintojakso-koodi-ohje" v-model="data.koodi" type="string" :validation="validation.koodi" :is-editing="isEditing" />
-                </ep-form-content>
-              </div>
+          <div class="row">
+            <div class="col-md-6">
+              <ep-form-content name="nimi">
+                <ep-field
+                  help="opintojakso-nimi-ohje"
+                  v-model="data.nimi"
+                  :validation="validation.nimi"
+                  :is-header="false"
+                  :is-editing="isEditing"></ep-field>
+              </ep-form-content>
             </div>
-            <div class="row">
-              <div class="col-md-6">
-                <ep-form-content name="oppiaineet">
-                  <ep-oppiaine-selector
-                    v-if="isEditing"
-                    :opetussuunnitelma-store="opetussuunnitelmaStore"
-                    :ops-id="$route.params.id"
-                    :validation="validation.oppiaineet"
-                    :value="data.oppiaineet.map(x => x.koodi)"
-                    @input="updateOppiaineet" />
-                  <div v-else>
-                    <ul>
-                      <li v-for="oa in data.oppiaineet" :key="oa.koodi">
-                        {{ $kaanna(oppiaineetMap[oa.koodi].nimi) }}
-                      </li>
-                    </ul>
-                  </div>
-                </ep-form-content>
-              </div>
-              <div class="col-md-6">
-                <ep-form-content name="opintopisteet">
-                  <span>{{ laajuus }} {{ $t('opintopiste') }} ({{ $t('johdetaan-moduuleista') }})</span>
-                </ep-form-content>
-              </div>
+            <div class="col-md-6">
+              <ep-form-content name="koodi">
+                <ep-field help="opintojakso-koodi-ohje" v-model="data.koodi" type="string" :validation="validation.koodi" :is-editing="isEditing" />
+              </ep-form-content>
             </div>
-          </ep-collapse>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <ep-form-content name="oppiaineet">
+                <ep-oppiaine-selector
+                  v-if="isEditing"
+                  :opetussuunnitelma-store="opetussuunnitelmaStore"
+                  :ops-id="$route.params.id"
+                  :validation="validation.oppiaineet"
+                  :value="data.oppiaineet.map(x => x.koodi)"
+                  @input="updateOppiaineet" />
+                <div v-else>
+                  <ul>
+                    <li v-for="oa in data.oppiaineet" :key="oa.koodi">
+                      {{ $kaanna(oppiaineetMap[oa.koodi].nimi) }}
+                    </li>
+                  </ul>
+                </div>
+              </ep-form-content>
+            </div>
+            <div class="col-md-6">
+              <ep-form-content name="opintopisteet">
+                <span>{{ laajuus }} {{ $t('opintopiste') }} ({{ $t('johdetaan-moduuleista') }})</span>
+              </ep-form-content>
+            </div>
+          </div>
         </div>
+        <hr/>
         <div class="osio" v-if="isEditing || data.moduulit.length > 0">
           <ep-collapse tyyppi="opintojakson-moduulit">
             <div class="alueotsikko" slot="header">{{ $t('opintojakson-moduulit') }}</div>
@@ -315,7 +313,7 @@ export default class RouteOpintojakso extends Mixins(EpOpsRoute) {
     if (await this.vahvista()) {
       await this.store.removeOpintojakso(data.id);
       this.$router.push({
-        name: 'opsPoistetut',
+        name: 'oppiaineet',
       });
     }
   }

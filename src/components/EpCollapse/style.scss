@@ -1,9 +1,5 @@
 @import '@/styles/_variables.scss';
 
-.ep-collapse:not(.first) {
-  border-top: 1px solid #DADADA;
-}
-
 .ep-collapse {
 
   padding: 27px 0 27px 0;
@@ -15,6 +11,10 @@
 
   .header {
     user-select: none;
+  }
+
+  hr {
+    margin: 0px;
   }
 
 }

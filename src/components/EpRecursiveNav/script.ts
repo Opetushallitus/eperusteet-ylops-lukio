@@ -60,7 +60,7 @@ export default class EpRecursiveNav extends Vue {
   }
 
   @Watch('value')
-  private onValueChange() {
+  private onValueChange(oldval, newval) {
     this.processNewValue();
   }
 

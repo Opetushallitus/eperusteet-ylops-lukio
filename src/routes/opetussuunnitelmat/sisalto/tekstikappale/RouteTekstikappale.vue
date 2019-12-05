@@ -1,7 +1,7 @@
 <template>
 <div class="tekstiviite" v-if="hooks">
   <div class="kappale">
-    <ep-editointi :hooks="hooks">
+    <ep-editointi :hooks="hooks" type="tekstikappale">
       <template slot="ohje" slot-scope="{ isEditing, data }">
         <div class="sidepad">
           <p>{{ $t('ohje-tekstikapale') }}</p>
@@ -25,7 +25,7 @@
       <template slot-scope="{ isEditing, data }">
         <div class="teksti">
           <span comment-uuid="data.tov.tekstiKappale.tunniste">
-            <ep-collapse tyyppi="perusteteksti" v-if="(isEditing || data.tov.naytaPerusteenTeksti) && perusteenTeksti && perusteenTeksti.perusteenOsa" :first="true">
+            <ep-collapse tyyppi="perusteteksti" v-if="(isEditing || data.tov.naytaPerusteenTeksti) && perusteenTeksti && perusteenTeksti.perusteenOsa">
               <h5 slot="header">{{ $t('perusteen-teksti') }}</h5>
               <p class="perusteteksti" v-html="$kaanna(perusteenTeksti.perusteenOsa.teksti)">
               </p>

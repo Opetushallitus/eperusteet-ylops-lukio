@@ -1,6 +1,6 @@
 <template>
 <div v-if="hooks && !isLoading">
-  <ep-editointi :hooks="hooks" v-model="editable" :validator="validator">
+  <ep-editointi :hooks="hooks" v-model="editable" :validator="validator" type="paikallinen-oppiaine">
     <template slot="header" slot-scope="{ data, }">
       <h2>{{ $kaanna(data.nimi) }}</h2>
     </template>

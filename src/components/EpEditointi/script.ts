@@ -43,11 +43,26 @@ export default class EpEditointi extends Mixins(validationMixin) {
   @Prop({ default: null })
   private validator!: any | null;
 
+  @Prop({ required: false })
+  private type!: string | null;
+
   private sidebarState = 0;
 
   private ctrls: EditointiKontrolli | null = null;
   private state: any = null;
   private isInitialized = false;
+
+  get poistoteksti() {
+    if(!this.type) {
+      return this.$t('poista');
+    }
+
+    return this.$t('poista-'+this.type);
+  }
+
+  get dropDownValinnatVisible() {
+    return this.ctrls!.isEditing && !(!this.hooks.remove || this.state.disabled);
+  }
 
   get hasKeskusteluSlot() {
     return this.$scopedSlots.keskustelu;

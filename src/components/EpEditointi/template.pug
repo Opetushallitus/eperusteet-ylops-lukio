@@ -29,26 +29,27 @@ div
               :help="saveHelpText")
               slot(name="tallenna") {{ $t('tallenna') }}
             b-dropdown.ml-4.mr-4(
-              v-if="ctrls.isEditing",
+              v-if="dropDownValinnatVisible",
               size="md",
               variant="link",
               :disabled="state.disabled",
               toggle-class="text-decoration-none",
-              no-caret)
+              no-caret
+              right)
               template(slot="button-content")
                 fas(icon="ellipsis-h")
               b-dropdown-item(
                 @click="ctrls.remove()",
                 key="poista",
                 :disabled="!hooks.remove || state.disabled")
-                slot(name="poista") {{ $t('poista') }}
+                slot(name="poista") {{ poistoteksti }}
             ep-button(
               id="editointi-muokkaus",
               v-tutorial,
               variant="link",
               v-oikeustarkastelu="'muokkaus'",
               @click="ctrls.start()",
-              v-if="!ctrls.isEditing",
+              v-if="!ctrls.isEditing && ctrls.isEditable",
               icon="pen",
               :show-spinner="state.isSaving",
               :disabled="state.disabled")

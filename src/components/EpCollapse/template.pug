@@ -1,5 +1,6 @@
 div
-  .ep-collapse(v-if="!disableHeader" :class="first ? 'first': ''")
+  hr(v-if="first")
+  .ep-collapse(v-if="!disableHeader")
     // Button tagia ei voida käyttää, sillä ml-auto ei toimi.
     // Käytetään button rolea saavutettavuuden takaamiseksi.
     .collapse-button.d-flex(
@@ -16,4 +17,5 @@ div
         fas(icon="chevron-down", v-else)
     div(v-if="toggled")
       slot
+    hr
   slot(v-else)

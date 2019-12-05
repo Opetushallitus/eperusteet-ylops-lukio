@@ -1,7 +1,7 @@
 <template>
 <div class="content">
   <div v-if="hooks">
-    <ep-editointi :hooks="hooks" :validator="validator">
+    <ep-editointi :hooks="hooks" :validator="validator" type="opetussuunnitelma">
       <h2 class="otsikko" slot="header">{{ $t('tiedot') }}</h2>
       <template v-slot="{ data, validation, isEditing }">
         <div>
