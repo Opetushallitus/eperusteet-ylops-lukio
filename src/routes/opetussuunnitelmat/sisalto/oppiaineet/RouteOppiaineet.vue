@@ -1,34 +1,47 @@
 <template>
 <div class="content">
-  <h1>
-    <span>{{ $t('oppiaineet') }}</span>
-  </h1>
-  <div class="row">
-    <div class="col-md-9">
-      <div>
-        <p>{{ $t('route-oppiaineet-kuvaus') }}</p>
+  <ep-editointi :hooks="hooks">
+    <template slot="header">
+      <h1>
+        <span>{{ $t('oppiaineet') }}</span>
+      </h1>
+    </template>
+    <template slot="ohje">
+      <div class="sidepad">
+        <!-- <p>N/A</p> -->
       </div>
-      <div>
-        <div class="d-flex align-items-center">
-          <div class="p-2">
-            <ep-search v-model="query">
-            </ep-search>
-          </div>
-          <div class="p-2 checkbox">
-            <b-form-checkbox v-model="vainPuuttuvat">{{ $t('vain-puuttuvat-moduulit') }}</b-form-checkbox>
+    </template>
+
+    <div class="row">
+      <div class="col-md-9">
+        <div>
+          <p>{{ $t('route-oppiaineet-kuvaus') }}</p>
+        </div>
+        <div>
+          <div class="d-flex align-items-center">
+            <div class="p-2">
+              <ep-search v-model="query">
+              </ep-search>
+            </div>
+            <div class="p-2 checkbox">
+              <ep-toggle v-model="vainPuuttuvat">{{ $t('vain-liittamattomat-moduulit') }}</ep-toggle>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-3">
-      <div>
-        <ep-button v-oikeustarkastelu="'muokkaus'" variant="outline-primary" icon="plus" @click="uusiOppiaine()">{{ $t('paikallinen-oppiaine') }}</ep-button>
-        <ep-button v-oikeustarkastelu="'muokkaus'" variant="outline-primary" icon="plus" @click="uusiOpintojakso()">{{ $t('opintojakso') }}</ep-button>
+      <div class="col-md-3">
+        <div>
+          <ep-button v-oikeustarkastelu="'muokkaus'" variant="outline-primary" icon="plus" @click="uusiOppiaine()">{{
+            $t('paikallinen-oppiaine') }}
+          </ep-button>
+          <ep-button v-oikeustarkastelu="'muokkaus'" variant="outline-primary" icon="plus" @click="uusiOpintojakso()">
+            {{ $t('opintojakso') }}
+          </ep-button>
+        </div>
       </div>
     </div>
-  </div>
-  <table class="table table-borderless oppiaineet">
-    <thead class="head">
+    <table class="table table-borderless oppiaineet">
+      <thead class="head">
       <tr>
         <th width="20%">{{ $t('oppiaine') }}</th>
         <th width="25%">{{ $t('luodut-opintojaksot') }}</th>
@@ -41,8 +54,8 @@
           </button>
         </th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <template v-for="(oa, idx) in suodatettuOppiaineRakenne">
         <tr class="headerline" :class="oa.isOpen && 'opened'" :key="idx">
           <td>
@@ -60,7 +73,8 @@
           <td>
           </td>
           <td class="actions">
-            <button class="btn btn-link" @click="toggleOppiaine(oa)" v-if="oa.oppimaarat && oa.oppimaarat.length === 0">
+            <button class="btn btn-link" @click="toggleOppiaine(oa)"
+                    v-if="oa.oppimaarat && oa.oppimaarat.length === 0">
               <fas v-if="oa.isOpen" icon="chevron-down">
               </fas>
               <fas v-else icon="chevron-up">
@@ -78,7 +92,9 @@
                   <tr class="item">
                     <!-- td.op {{ oj.laajuus || 0 }}{{ $t('op') }}-->
                     <td class="nimi">
-                      <router-link :to="{ name: 'opintojakso', params: { opintojaksoId: oj.id } }">{{ $kaanna(oj.nimi) }} ({{ oj.koodi }})</router-link>
+                      <router-link :to="{ name: 'opintojakso', params: { opintojaksoId: oj.id } }">{{ $kaanna(oj.nimi)
+                        }} ({{ oj.koodi }})
+                      </router-link>
                     </td>
                   </tr>
                 </table>
@@ -111,7 +127,8 @@
                 <div class="moduuli" :class="moduuli.classes">
                   <table>
                     <td>
-                      <ep-color-indicator class="mr-2" :kind="moduuli.pakollinen ? 'pakollinen' : 'valinnainen'"> </ep-color-indicator>
+                      <ep-color-indicator class="mr-2"
+                                          :kind="moduuli.pakollinen ? 'pakollinen' : 'valinnainen'"></ep-color-indicator>
                       <span>{{ $kaanna(moduuli.nimi) }}</span>
                       <span class="ml-1">({{ moduuli.koodi.arvo }})</span>
                     </td>
@@ -133,29 +150,32 @@
         <td>
         </td>
       </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </ep-editointi>
 </div>
 </template>
 
 <script lang="ts">
-import { Mixins, Component } from 'vue-property-decorator';
-import EpButton from '@/components/EpButton/EpButton.vue';
-import EpCollapse from '@/components/EpCollapse/EpCollapse.vue';
-import EpColorIndicator from '@shared/components/EpColorIndicator/EpColorIndicator.vue';
-import EpContent from '@/components/EpContent/EpContent.vue';
-import EpEditointi from '@/components/EpEditointi/EpEditointi.vue';
-import EpSpinner from '@shared/components/EpSpinner/EpSpinner.vue';
-import EpSearch from '@/components/forms/EpSearch.vue';
-import { Lops2019ModuuliDto, Lops2019OppiaineDto } from '@/tyypit';
-import EpRoute from '@/mixins/EpRoute';
-import EpOpsComponent from '@/mixins/EpOpsComponent';
-import { PerusteCache } from '@/stores/peruste';
-import { koodiAlku, koodiNumero } from '@/utils/perusteet';
+import _ from "lodash";
+import { Mixins, Component } from "vue-property-decorator";
+import { Lops2019ModuuliDto, Lops2019OppiaineDto } from "@/tyypit";
+import { PerusteCache } from "@/stores/peruste";
+import { koodiAlku, koodiNumero } from "@/utils/perusteet";
+import { Kielet } from "@shared/stores/kieli";
+import { oikeustarkastelu } from "@/directives/oikeustarkastelu";
+import { EditointiKontrolliConfig } from "@/stores/editointi";
 
-import _ from 'lodash';
-import { Kielet } from '@shared/stores/kieli';
-import { oikeustarkastelu } from '@/directives/oikeustarkastelu';
+import EpButton from "@/components/EpButton/EpButton.vue";
+import EpCollapse from "@/components/EpCollapse/EpCollapse.vue";
+import EpColorIndicator from "@shared/components/EpColorIndicator/EpColorIndicator.vue";
+import EpContent from "@/components/EpContent/EpContent.vue";
+import EpEditointi from "@/components/EpEditointi/EpEditointi.vue";
+import EpSpinner from "@shared/components/EpSpinner/EpSpinner.vue";
+import EpSearch from "@/components/forms/EpSearch.vue";
+import EpRoute from "@/mixins/EpRoute";
+import EpOpsComponent from "@/mixins/EpOpsComponent";
+import EpToggle from'@shared/components/forms/EpToggle.vue';
 
 
 @Component({
@@ -170,14 +190,33 @@ import { oikeustarkastelu } from '@/directives/oikeustarkastelu';
     EpEditointi,
     EpSearch,
     EpSpinner,
+    EpToggle,
   },
 })
 export default class RouteOppiaineet extends Mixins(EpRoute, EpOpsComponent) {
   private cache: PerusteCache | null = null;
   private valitutModuuliUrit: { [uri: string]: string } | null = null;
-  private query = '';
+  private query = "";
   private vainPuuttuvat = false;
   private opened: { [id: number]: any } = {};
+
+  private hooks: EditointiKontrolliConfig = {
+    source: {
+      load: this.load,
+    },
+  };
+
+  private async load() {
+    const result = {
+      ohjeet: [{teksti: "N/A"}],
+    } as any;
+
+    if (_.isEmpty(result.ohjeet)) {
+      result.ohjeet.push({});
+    }
+
+    return result;
+  }
 
   get isHovering() {
     return this.valitutModuuliUrit !== null;
@@ -186,15 +225,14 @@ export default class RouteOppiaineet extends Mixins(EpRoute, EpOpsComponent) {
   get peruste() {
     if (this.cache) {
       return this.cache!.peruste;
-    }
-    else {
+    } else {
       return null;
     }
   }
 
   get total() {
     return _(this.oppiaineRakenne)
-      .map('stats')
+      .map("stats")
       .reduce((acc, next) => {
         return {
           opintojaksot: acc.opintojaksot + next.opintojaksot,
@@ -217,7 +255,7 @@ export default class RouteOppiaineet extends Mixins(EpRoute, EpOpsComponent) {
 
   get moduulit() {
     const result = _(this.oppiaineetJaOppimaarat)
-      .map('moduulit')
+      .map("moduulit")
       .flatten()
       .value();
     return result;
@@ -225,8 +263,8 @@ export default class RouteOppiaineet extends Mixins(EpRoute, EpOpsComponent) {
 
   get moduulitByKoodi() {
     return _(this.moduulit)
-      .filter('koodi.uri')
-      .keyBy('koodi.uri')
+      .filter("koodi.uri")
+      .keyBy("koodi.uri")
       .value() as { [uri: string]: Lops2019ModuuliDto };
   }
 
@@ -248,8 +286,8 @@ export default class RouteOppiaineet extends Mixins(EpRoute, EpOpsComponent) {
         };
       })
       .filter((oa: any) => Kielet.search(this.query, oa.nimi)
-          || !_.isEmpty(oa.moduulit)
-          || !_.isEmpty(oa.opintojaksot))
+        || !_.isEmpty(oa.moduulit)
+        || !_.isEmpty(oa.opintojaksot))
       .sortBy((oa: any) => oa.paikallinen, koodiAlku, koodiNumero)
       .value();
   }
@@ -262,9 +300,9 @@ export default class RouteOppiaineet extends Mixins(EpRoute, EpOpsComponent) {
       active,
       used,
       classes: {
-        'moduuli-active': active,
-        'moduuli-inactive': this.isHovering && !active,
-        'moduuli-unused': !this.isHovering && !used,
+        "moduuli-active": active,
+        "moduuli-inactive": this.isHovering && !active,
+        "moduuli-unused": !this.isHovering && !used,
       },
     };
   }
@@ -311,20 +349,20 @@ export default class RouteOppiaineet extends Mixins(EpRoute, EpOpsComponent) {
         const opintojaksot = _(this.store.opintojaksot)
           .filter(oj => _.includes(
             _(oj.oppiaineet)
-              .map('koodi')
+              .map("koodi")
               .filter(_.identity)
               .value(),
             oa.koodi!.uri))
           .value();
 
         const opintojaksojenModuulit = _(opintojaksot)
-          .map('moduulit')
+          .map("moduulit")
           .flatten()
-          .keyBy('koodiUri')
+          .keyBy("koodiUri")
           .value();
 
         const vieraatModuulit = _(opintojaksot)
-          .map('moduulit')
+          .map("moduulit")
           .flatten()
           .map(moduuli => this.moduulitByKoodi[moduuli.koodiUri])
           .reject((moduuli: any) => !moduuli.koodi || _.startsWith(moduuli.koodi!.arvo, oa.koodi!.arvo))
@@ -369,7 +407,7 @@ export default class RouteOppiaineet extends Mixins(EpRoute, EpOpsComponent) {
 
   private hoverOpintojakso(oj: any) {
     this.valitutModuuliUrit = _(oj.moduulit)
-      .keyBy('koodiUri')
+      .keyBy("koodiUri")
       .value();
   }
 
@@ -379,29 +417,28 @@ export default class RouteOppiaineet extends Mixins(EpRoute, EpOpsComponent) {
 
   private toggleAll() {
     if (_.isEmpty(this.opened)) {
-      this.opened = _.keyBy(this.oppiaineRakenne, 'id');
-    }
-    else {
+      this.opened = _.keyBy(this.oppiaineRakenne, "id");
+    } else {
       this.opened = {};
     }
   }
 
   public uusiOppiaine() {
     this.$router.push({
-      name: 'paikallinenOppiaine',
+      name: "paikallinenOppiaine",
       params: {
         ...this.$router.currentRoute.params,
-        paikallinenOppiaineId: 'uusi',
+        paikallinenOppiaineId: "uusi",
       },
     });
   }
 
   public uusiOpintojakso() {
     this.$router.push({
-      name: 'opintojakso',
+      name: "opintojakso",
       params: {
         ...this.$router.currentRoute.params,
-        opintojaksoId: 'uusi',
+        opintojaksoId: "uusi",
       },
     });
   }
@@ -478,6 +515,7 @@ table.oppiaineet {
         td.op {
           padding: 4px;
         }
+
         td.nimi {
           padding: 4px;
         }

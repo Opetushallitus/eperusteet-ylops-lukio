@@ -849,7 +849,7 @@
   "vahvista-vuosiluokkakokonaisuudet-muokkaus-otsikko": "Redigera läroplanens uppgifter",
   "vahvista-vuosiluokkakokonaisuudet-muokkaus-teksti": "Spara ändringar? Om du raderar en årskurshelhet försvinner dess innehåll.",
   "vaihda-tilaa": "Ändra status",
-  "vain-puuttuvat-moduulit": "Endast de moduler som saknas",
+  "vain-liittamattomat-moduulit": "Endast de moduler som saknas",
   "validation-category-moduuli": "Moduler",
   "validation-category-opetussuunnitelma": "Uppgifter om läroplanen",
   "validation-category-opintojakso": "Studieavsnitt",

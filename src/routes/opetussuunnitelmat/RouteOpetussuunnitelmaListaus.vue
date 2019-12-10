@@ -11,130 +11,110 @@
     </template>
 
     <ep-spinner v-if="isLoading"></ep-spinner>
-    <div v-else>
-      <div class="opslistaus">
-        <h2>{{ $t(vars.keskeneraiset) }}</h2>
+    <b-container fluid v-else >
+      <b-row>
+        <b-col lg="8">
+          <div class="opslistaus">
+            <h2>{{ $t(vars.keskeneraiset) }}</h2>
 
-        <div class="opscontainer">
-          <div class="opsbox" v-oikeustarkastelu="'luonti'">
-            <router-link tag="a" :to="{ name: vars.uusiRoute }">
-              <div class="uusi">
-                <div class="plus">
-                  <fas icon="plus"></fas>
-                </div>
-                <div class="text">
-                  {{ $t('luo-uusi') }}
-                </div>
-              </div>
-            </router-link>
-          </div>
-
-          <div v-for="ops in keskeneraiset" :key="ops.id">
-            <div v-if="ops.toteutus === 'lops2019' || ops.toteutus === 'yksinkertainen'"
-                 class="opsbox">
-              <router-link
-                tag="a"
-                :to="{ name: 'opsTiedot', params: { id: ops.id } }"
-                :key="ops.id">
-                <div class="chart">
-                  <div class="progress-clamper">
-                    <ep-progress :slices="[0.2, 0.5, 1]" />
+            <div class="opscontainer">
+              <div class="opsbox" v-oikeustarkastelu="'luonti'">
+                <router-link tag="a" :to="{ name: vars.uusiRoute }">
+                  <div class="uusi">
+                    <div class="plus">
+                      <fas icon="plus"></fas>
+                    </div>
+                    <div class="text">
+                      {{ $t('luo-uusi') }}
+                    </div>
                   </div>
-                </div>
-                <div class="info">
-                  <div class="nimi">
-                    {{ $kaanna(ops.nimi, true) }}
-                  </div>
-                </div>
-              </router-link>
-            </div>
-            <div v-else
-                 ref="disabled"
-                 class="opsbox disabled">
-              <div class="info-top">
-                <p>{{ $t('koulutustyyppi-ei-ole-toteutettu') }}</p>
+                </router-link>
               </div>
-              <div class="info">
-                <div class="nimi">
-                  {{ $kaanna(ops.nimi) }}
+
+              <div v-for="ops in keskeneraiset" :key="ops.id">
+                <div v-if="ops.toteutus === 'lops2019' || ops.toteutus === 'yksinkertainen'"
+                    class="opsbox">
+                  <router-link
+                    tag="a"
+                    :to="{ name: 'opsTiedot', params: { id: ops.id } }"
+                    :key="ops.id">
+                    <div class="chart">
+                      <div class="progress-clamper">
+                        <ep-progress :slices="[0.2, 0.5, 1]" />
+                      </div>
+                    </div>
+                    <div class="info">
+                      <div class="nimi">
+                        {{ $kaanna(ops.nimi, true) }}
+                      </div>
+                    </div>
+                  </router-link>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="opslistaus">
-        <h2 class="mt-4">{{ $t(vars.julkaistut) }}</h2>
-
-        <div class="info" v-if="julkaistut.length === 0">
-          <div class="alert alert-info">{{ $t(vars.eivalmiita) }}</div>
-        </div>
-
-        <div class="opscontainer">
-          <div v-for="ops in julkaistut" :key="ops.id">
-            <div class="opsbox" v-if="ops.toteutus === 'lops2019' || ops.toteutus === 'yksinkertainen'">
-              <router-link
-                tag="a"
-                :to="{ name: 'opsTiedot', params: { id: ops.id } }"
-                :key="ops.id">
-                <div class="chart">
-                  <div class="progress-clamper">
-                    <ep-progress :slices="[0.2, 0.5, 1]" />
+                <div v-else
+                    ref="disabled"
+                    class="opsbox disabled">
+                  <div class="info-top">
+                    <p>{{ $t('koulutustyyppi-ei-ole-toteutettu') }}</p>
                   </div>
-                </div>
-                <div class="info">
-                  <div class="nimi">
-                    {{ $kaanna(ops.nimi) }}
+                  <div class="info">
+                    <div class="nimi">
+                      {{ $kaanna(ops.nimi) }}
+                    </div>
                   </div>
-                </div>
-              </router-link>
-            </div>
-            <div v-else
-                 ref="disabled"
-                 class="opsbox disabled">
-              <div class="info-top">
-                <p>{{ $t('koulutustyyppi-ei-ole-toteutettu') }}</p>
-              </div>
-              <div class="info">
-                <div class="nimi">
-                  {{ $kaanna(ops.nimi) }}
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="opslistaus">
-        <h2 class="mt-4">{{ $t(vars.poistetut) }}</h2>
+          <div class="opslistaus">
+            <h2 class="mt-4">{{ $t(vars.julkaistut) }}</h2>
 
-        <div class="info" v-if="poistetut.length === 0">
-          <div class="alert alert-info">{{ $t(vars.eiarkistoituja) }}</div>
-        </div>
+            <div class="info" v-if="julkaistut.length === 0">
+              <ep-alert :ops="true" :text="$t(vars.eivalmiita)" />
+            </div>
 
-        <div class="opscontainer">
-          <div v-for="ops in poistetut" :key="ops.id">
-            <div ref="disabled"
-                 class="opsbox disabled">
-              <div class="poistettu">
-                <div class="ikoni">
-                  <fas icon="ban"></fas>
+            <div class="opscontainer">
+              <div v-for="ops in julkaistut" :key="ops.id">
+                <div class="opsbox" v-if="ops.toteutus === 'lops2019' || ops.toteutus === 'yksinkertainen'">
+                  <router-link
+                    tag="a"
+                    :to="{ name: 'opsTiedot', params: { id: ops.id } }"
+                    :key="ops.id">
+                    <div class="chart">
+                      <div class="progress-clamper">
+                        <ep-progress :slices="[0.2, 0.5, 1]" />
+                      </div>
+                    </div>
+                    <div class="info">
+                      <div class="nimi">
+                        {{ $kaanna(ops.nimi) }}
+                      </div>
+                    </div>
+                  </router-link>
                 </div>
-                <div class="text">
-                  {{ $kaanna(ops.nimi) }}
-                </div>
-                <div class="palauta">
-                  <ep-button variant="danger" @click="palauta(ops)" v-oikeustarkastelu="'hallinta'">
-                    {{ $t('palauta') }}
-                  </ep-button>
+                <div v-else
+                    ref="disabled"
+                    class="opsbox disabled">
+                  <div class="info-top">
+                    <p>{{ $t('koulutustyyppi-ei-ole-toteutettu') }}</p>
+                  </div>
+                  <div class="info">
+                    <div class="nimi">
+                      {{ $kaanna(ops.nimi) }}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </b-col>
+
+        <b-col v-if="poistetut.length > 0" lg="4">
+          <ep-arkistoidut-ops :opetussuunnitelmat="poistetut" :title="vars.poistetut"/>
+        </b-col>
+
+      </b-row>
+    </b-container>
   </ep-main-view>
 </div>
 </template>
@@ -153,6 +133,8 @@ import EpNavigation from '@/components/EpNavigation/EpNavigation.vue';
 import EpProgress from '@/components/EpProgress.vue';
 import EpSpinner from '@shared/components/EpSpinner/EpSpinner.vue';
 import EpButton from '@/components/EpButton/EpButton.vue';
+import EpArkistoidutOps from '@/components/EpArkistoidutOps/EpArkistoidutOps.vue';
+import EpAlert from '@shared/components/EpAlert/EpAlert.vue';
 import { oikeustarkastelu } from '@/directives/oikeustarkastelu';
 import { TutoriaaliStore } from '@/stores/tutoriaaliStore';
 import { OpetussuunnitelmaStore } from '@/stores/opetussuunnitelma';
@@ -171,6 +153,8 @@ import { success, fail } from '@/utils/notifications';
     EpNavigation,
     EpProgress,
     EpSpinner,
+    EpAlert,
+    EpArkistoidutOps,
   },
 })
 export default class RouteOpetussuunnitelmaListaus extends Mixins(EpRoute) {
@@ -274,6 +258,11 @@ $box-size: 350px;
 $box-radius: 10px;
 
 .opslistaus {
+
+  .info {
+    padding: 10px 0px;
+  }
+
   .opscontainer {
     display: flex;
     flex-wrap: wrap;

@@ -7,6 +7,7 @@ import * as oph from './icons';
 
 library.add(regular.faComment);
 library.add(regular.faTrashAlt);
+library.add(regular.faFolder);
 library.add(solid.faBan);
 library.add(solid.faBars);
 library.add(solid.faBell);

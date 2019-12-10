@@ -14,6 +14,8 @@ import EpFormContent from '@/components/forms/EpFormContent.vue';
 import EpSearch from '@/components/forms/EpSearch.vue';
 import EpSpinner from '@shared/components/EpSpinner/EpSpinner.vue';
 import EpInput from '@/components/forms/EpInput.vue';
+import EpToggle from'@shared/components/forms/EpToggle.vue';
+import { Termisto } from '@/api';
 
 interface Kasite {
   kasite: TermiDto;
@@ -28,6 +30,7 @@ interface Kasite {
     EpInput,
     EpSearch,
     EpSpinner,
+    EpToggle,
   },
   mixins: [
     validationMixin,

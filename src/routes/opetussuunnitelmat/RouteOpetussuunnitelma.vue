@@ -209,6 +209,8 @@ export default class RouteOpetussuunnitelma extends Mixins(EpOpsRoute) {
     }
 
     .info {
+      padding-left: 15px;
+
       @media only screen and (max-width: 768px) {
         padding-left: 30px;
       }

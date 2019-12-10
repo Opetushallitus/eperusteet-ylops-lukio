@@ -13,8 +13,7 @@
         <ep-search v-model="rajain" class="mb-3"></ep-search>
         <p>{{ $t('ukk-luoja-rajaus') }}:</p>
         <div class="form-check form-check-inline" v-for="(org, idx) in organisaatiot" :key="idx">
-          <input class="form-check-input" :id="org.oid" type="checkbox" v-model="org.$checked" />
-          <label class="form-check-label" :for="org.oid">{{ $kaanna(org.nimi) }}</label>
+          <ep-toggle v-model="org.$checked" :id="org.oid">{{ $kaanna(org.nimi) }}</ep-toggle>
         </div>
         <p>
           <ep-button v-oikeustarkastelu="'tilanvaihto'" class="float-right" variant="outline-primary" icon="plus" @click="startKysymysModal(null)">
@@ -125,6 +124,8 @@ import EpMainView from'@/components/EpMainView/EpMainView.vue';
 import EpSearch from'@/components/forms/EpSearch.vue';
 import EpSelect from'@/components/forms/EpSelect.vue';
 import EpSpinner from '@shared/components/EpSpinner/EpSpinner.vue';
+import EpToggle from'@shared/components/forms/EpToggle.vue';
+
 
 export interface KysymysLaajennettuDto extends KysymysDto {
   $uusi?: boolean;
@@ -144,6 +145,7 @@ export interface KysymysLaajennettuDto extends KysymysDto {
     EpSearch,
     EpSelect,
     EpSpinner,
+    EpToggle,
   },
   validations() {
     return {

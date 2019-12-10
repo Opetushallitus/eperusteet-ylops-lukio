@@ -8,7 +8,7 @@ div.content
     p.kuvaus(v-html="$kaanna(moduuli.kuvaus)")
 
     div.collapse-container
-      ep-collapse
+      ep-collapse(:first="true")
         h4(slot="header") {{ $t('yleiset-tavoitteet') }}
         ep-prefix-list(
           :value="moduuli.tavoitteet",
