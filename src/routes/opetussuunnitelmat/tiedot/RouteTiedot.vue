@@ -47,9 +47,9 @@
                 <ep-toggle help="ops-esikatseltavissa-ohje" v-model="data.esikatseltavissa" :is-editing="isEditing"></ep-toggle>
               </ep-form-content>
             </div>
-            <div class="col-md-6" v-if="isOps">
+            <div class="col-md-6" v-if="isOps && !isEditing">
               <ep-form-content name="esikatsele-opetussuunnitelmaa">
-                <ep-linkki v-if="data.esikatseltavissa && !isEditing"
+                <ep-linkki v-if="data.esikatseltavissa"
                            :url="esikatseluUrl(data)"
                            icon="external-link-alt"></ep-linkki>
               </ep-form-content>
