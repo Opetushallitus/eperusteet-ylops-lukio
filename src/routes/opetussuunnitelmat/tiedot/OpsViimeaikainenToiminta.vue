@@ -143,7 +143,6 @@ export default class OpsViimeaikainenToiminta extends Vue {
     if (muokkaustieto.kohde === 'opetussuunnitelma_rakenne') {
       return 'luokaton';
     }
-    console.log(muokkaustieto.tapahtuma);
 
     return muokkaustieto.tapahtuma;
   }
