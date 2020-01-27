@@ -217,7 +217,7 @@ export default class RouteOpetussuunnitelmaUusi extends Mixins(validationMixin, 
         const luotu = await Opetussuunnitelmat.addOpetussuunnitelma(ops);
         success('lisays-opetussuunnitelma-onnistui');
         this.$router.replace({
-          name: 'opsTiedot',
+          name: 'yleisnakyma',
           params: {
             id: '' + luotu.data.id,
           },

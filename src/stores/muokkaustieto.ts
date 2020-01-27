@@ -23,7 +23,7 @@ export class MuokkaustietoStore {
   }
 
   public async update() {
-    if (this.muokkaustiedot) {
+    if (!_.isEmpty(this.muokkaustiedot)) {
       this.viimeinenHaku = (await Muokkaustieto.getOpsMuokkausTiedotWithLuomisaika(this.opsId!, (_.last(this.muokkaustiedot) as any).luotu, this.hakuLukumaara) as any).data;
 
       if (this.viimeinenHaku) {

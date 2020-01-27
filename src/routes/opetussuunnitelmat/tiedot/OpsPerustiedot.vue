@@ -54,9 +54,9 @@
             <div class="row justify-content-end">
               <div class="col-1"></div>
               <div class="col">
-                  <span v-for="virkailija in virkailijatFormatted" :key="virkailija.oid">
+                <p v-for="virkailija in virkailijatFormatted" :key="virkailija.oid" class="mb-0">
                   {{ virkailija.esitysnimi }}
-                </span>
+                </p>
               </div>
             </div>
           </div>
@@ -70,13 +70,15 @@
 </template>
 
 <script lang="ts">
-
-import { Vue, Component, Prop } from 'vue-property-decorator';
 import _ from 'lodash';
+import { Vue, Component, Prop } from 'vue-property-decorator';
+
 import { OpetussuunnitelmaKevytDto } from '@/tyypit';
 import { Kielet } from '@shared/stores/kieli';
-import EpSpinner from '@shared/components/EpSpinner/EpSpinner.vue';
 import { Kayttajat, parsiEsitysnimi } from '@/stores/kayttaja';
+
+import EpSpinner from '@shared/components/EpSpinner/EpSpinner.vue';
+
 
 @Component({
   components:{
@@ -92,7 +94,7 @@ export default class OpsPerustiedot extends Vue {
     return _.map(this.ops.julkaisukielet, (kieli) => Kielet.kaannaOlioTaiTeksti(kieli)).join(', ');
   }
 
-  async init() {
+  async mounted() {
     await Kayttajat.fetchOrganisaatioVirkailijat();
   }
 
@@ -102,10 +104,9 @@ export default class OpsPerustiedot extends Vue {
 
   private get virkailijatFormatted() {
     return _.map(this.virkailijat, virkailija => {
-      const esitysnimi = parsiEsitysnimi(virkailija);
       return {
         oid: virkailija.oid,
-        esitysnimi,
+        esitysnimi : parsiEsitysnimi(virkailija),
       };
     });
   }

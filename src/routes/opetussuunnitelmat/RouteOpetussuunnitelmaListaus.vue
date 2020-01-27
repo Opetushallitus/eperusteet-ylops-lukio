@@ -50,7 +50,7 @@
                     class="opsbox">
                   <router-link
                     tag="a"
-                    :to="{ name: 'opsTiedot', params: { id: ops.id } }"
+                    :to="{ name: 'yleisnakyma', params: { id: ops.id } }"
                     :key="ops.id">
                     <div class="chart">
                       <div class="progress-clamper">
@@ -95,7 +95,7 @@
                 <div class="opsbox julkaistu" v-if="ops.toteutus === 'lops2019' || ops.toteutus === 'yksinkertainen'">
                   <router-link
                     tag="a"
-                    :to="{ name: 'opsTiedot', params: { id: ops.id } }"
+                    :to="{ name: 'yleisnakyma', params: { id: ops.id } }"
                     :key="ops.id">
                     <div class="chart">
                       <div class="progress-clamper">

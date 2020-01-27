@@ -127,7 +127,7 @@ export default class RoutePohjaUusi extends Mixins(EpRoute, EpValidation) {
       success('lisays-pohja-onnistui');
       if (_.isNumber(data.id)) {
         this.$router.replace({
-          name: 'opsTiedot',
+          name: 'yleisnakyma',
           params: {
             id: '' + data.id,
           },

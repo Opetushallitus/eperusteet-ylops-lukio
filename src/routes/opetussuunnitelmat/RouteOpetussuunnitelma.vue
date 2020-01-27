@@ -116,7 +116,7 @@ export default class RouteOpetussuunnitelma extends Mixins(EpOpsRoute) {
     this.validation = await this.store.validate();
 
     if (this.store.opetussuunnitelma) {
-      this.breadcrumb('opetussuunnitelma', this.store.opetussuunnitelma.nimi, { name: 'opsTiedot' });
+      this.breadcrumb('opetussuunnitelma', this.store.opetussuunnitelma.nimi, { name: 'yleisnakyma' });
     }
   }
 
