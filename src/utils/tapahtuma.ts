@@ -28,7 +28,21 @@ const tapahtumaIcon = {
   palautus: 'peruuta',
 };
 
-export function muokkaustietoRoute(id, kohde) {
+const poistetutTabIndices = {
+  opintojakso: 0,
+  poppiaine: 1,
+  viite: 2,
+};
+
+export function muokkaustietoRoute(id, kohde, tapahtuma) {
+  if (tapahtuma === 'poisto') {
+    return {
+      name: 'opsPoistetut',
+      params: {
+        tabIndex: poistetutTabIndices[kohde],
+      }
+    }
+  }
 
   const router = {
     name: kohdereititys[kohde],

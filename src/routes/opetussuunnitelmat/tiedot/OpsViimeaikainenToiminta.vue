@@ -17,8 +17,17 @@
           </div>
 
           <div class="col router-col text-left">
-            <router-link :to="muokkaustieto.route">
-              <div class="router-box">
+            <div v-if="muokkaustieto.poistettu">
+              <div class="router-box" :class="{ 'router-box-poistettu': muokkaustieto.poistettu }">
+                <div class="row">
+                  <div class="col nimi">{{muokkaustieto.kayttajaNimi}}</div>
+                  <div class="col aika text-right">{{$ago(muokkaustieto.luotu)}}</div>
+                </div>
+                <div class="kohde">{{muokkaustieto.tapahtumateksti}}</div>
+              </div>
+            </div>
+            <router-link :to="muokkaustieto.route" v-else>
+              <div class="router-box" :class="{ 'router-box-poistettu': muokkaustieto.poistettu }">
                 <div class="row">
                   <div class="col nimi">{{muokkaustieto.kayttajaNimi}}</div>
                   <div class="col aika text-right">{{$ago(muokkaustieto.luotu)}}</div>
@@ -99,7 +108,7 @@ export default class OpsViimeaikainenToiminta extends Vue {
       .map((muokkaustieto) => {
         return {
           ...muokkaustieto,
-          route: muokkaustietoRoute(muokkaustieto.kohdeId, muokkaustieto.kohde),
+          route: muokkaustietoRoute(muokkaustieto.kohdeId, muokkaustieto.kohde, muokkaustieto.tapahtuma),
           icon: muokkaustietoIcon(muokkaustieto.kohde, muokkaustieto.tapahtuma),
           iconClass: this.muokkaustietoIconClass(muokkaustieto),
           kayttajaNimi: muokkaustieto.kayttajanTieto ? parsiEsitysnimi(muokkaustieto.kayttajanTieto) : muokkaustieto.muokkaaja,
@@ -216,7 +225,7 @@ export default class OpsViimeaikainenToiminta extends Vue {
           line-height: 1;
           padding: 10px;
           border-radius: 0.5rem;
-          box-shadow: 1px 1px 5px 0px rgba(0,26,88,0.1);
+          box-shadow: 1px 1px 5px 0 rgba(0,26,88,0.1);
           color: $black;
 
           .nimi {
@@ -235,6 +244,12 @@ export default class OpsViimeaikainenToiminta extends Vue {
             text-overflow: ellipsis;
           }
 
+        }
+
+        .router-box-poistettu {
+          .kohde {
+            text-decoration: line-through;
+          }
         }
       }
     }
