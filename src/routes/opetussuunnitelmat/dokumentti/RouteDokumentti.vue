@@ -143,8 +143,6 @@ export default class RouteDokumentti extends EpOpsRoute {
     await this.getDokumenttiTila();
   }
 
-  // TODO: tarkista toimiiko tila enummit
-  // *****!!!!!!!!!!**********
   // Haetaan dokumentin tila ja päivitetään muuttujat
   private async getDokumenttiTila() {
     // Päivitetään dokumentin tila
@@ -158,6 +156,9 @@ export default class RouteDokumentti extends EpOpsRoute {
 
       if (_.kebabCase(this.dto.tila) === _.kebabCase(DokumenttiDtoTilaEnum.VALMIS) && this.dto.id) {
         this.href = baseURL + DokumentitParams.get(_.toString(this.dto.id)).url;
+      }
+      else if (_.kebabCase(this.dto.tila) === _.kebabCase(DokumenttiDtoTilaEnum.EPAONNISTUI)) {
+        fail('pdf-tiedosto-luonti-epaonnistui');
       }
     }
   }
